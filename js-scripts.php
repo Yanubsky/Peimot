@@ -60,10 +60,6 @@
         } 
     //===================================================================================================
 
-
-
-
-
     function passConfirm(pass,confirm) {
     if(pass!==confirm){
         qs(".input.confirmPass").classList.add("err");
@@ -79,66 +75,65 @@
     // i'd like to create an incrementing value to each newInputTxt & newInputImg 
     //(or maybe for each containing div is easier) so i can easily manage the DB
 
-    var articlePrgNumber = 2;
+    // var articlePrgNumber = 2;
 
-    function addArticleSection() {
-        const newArticleDiv = document.createElement("div");
-        newArticleDiv.className = "article-body2";
+    // function addArticleSection() {
+    //     const newArticleDiv = document.createElement("div");
+    //     newArticleDiv.className = "article-body2";
         
+    //     var articlePrgName = "paragraph" + articlePrgNumber;
+    //     const newTextarea = document.createElement("textarea");
+    //     newTextarea.className = articlePrgName;
+    //     newTextarea.setAttribute('type', 'text');
+    //     newTextarea.setAttribute('name', articlePrgName);
+    //     newTextarea.setAttribute('rows', '20');
+    //     newTextarea.setAttribute('cols', '91');
+    //     newTextarea.setAttribute('autofocus','true');
+    //     newTextarea.setAttribute('required','true');
+    //     newTextarea.setAttribute('placeholder', '...הכנס/הדבק טקסט');
+
+
+    //     const newLbl = document.createElement("lable");
+    //     newLbl.className = articleImgName;
+    //     newLbl.setAttribute('for', articleImgName);
+    //     const lblTxt = document.createTextNode(".אנא הוסף קבצי תמונות בלבד. חשוב לשמור על איכות תמונה גבוהה");
+    //     newLbl.appendChild(lblTxt);
+
+    //     var articleImgName = "articleImg" + articlePrgNumber;
+    //     const newInputImg = document.createElement("input");
+    //     newInputImg.className = articleImgName;
+    //     newInputImg.setAttribute('type', 'file');
+    //     newInputImg.setAttribute('name', articleImgName);
+    //     newInputImg.setAttribute('accept', 'image/*');
+
+    //     const addPrgBtn = document.createElement("button");
+    //     addPrgBtn.id = "tempBtn";
+    //     addPrgBtn.setAttribute('onclick', 'addArticleSection()');
+    //     const prgBtnTxt = document.createTextNode("הוסף פסקה");
+    //     addPrgBtn.appendChild(prgBtnTxt);
+
+    //     const br = document.createElement("br");
+    //     function removeTempBtn(){
+    //        var tempBtn = document.getElementById('tempBtn');
+    //        tempBtn.remove();
+    //     };
+    //     removeTempBtn();
+
+    //     newArticleDiv.appendChild(newTextarea);
+    //     newArticleDiv.appendChild(br);
+    //     newArticleDiv.appendChild(newLbl);
+    //     newArticleDiv.appendChild(newInputImg);
+    //     newArticleDiv.appendChild(addPrgBtn);
+    //     let currentDiv = document.getElementById("article-body");
+    //     currentDiv.insertBefore(newArticleDiv, null);
+
+    //     // returning the number of times the func was invoked 
+    //     // in order to increment newTextarea.className & newInputImg.className
         
-        var articlePrgName = "paragraph" + articlePrgNumber;
-        const newTextarea = document.createElement("textarea");
-        newTextarea.className = articlePrgName;
-        newTextarea.setAttribute('type', 'text');
-        newTextarea.setAttribute('name', articlePrgName);
-        newTextarea.setAttribute('rows', '20');
-        newTextarea.setAttribute('cols', '91');
-        newTextarea.setAttribute('autofocus','true');
-        newTextarea.setAttribute('required','true');
-        newTextarea.setAttribute('placeholder', '...הכנס/הדבק טקסט');
-
-
-        const newLbl = document.createElement("lable");
-        newLbl.className = articleImgName;
-        newLbl.setAttribute('for', articleImgName);
-        const lblTxt = document.createTextNode(".אנא הוסף קבצי תמונות בלבד. חשוב לשמור על איכות תמונה גבוהה");
-        newLbl.appendChild(lblTxt);
-
-        var articleImgName = "articleImg" + articlePrgNumber;
-        const newInputImg = document.createElement("input");
-        newInputImg.className = articleImgName;
-        newInputImg.setAttribute('type', 'file');
-        newInputImg.setAttribute('name', articleImgName);
-        newInputImg.setAttribute('accept', 'image/*');
-
-        const addPrgBtn = document.createElement("button");
-        addPrgBtn.id = "tempBtn";
-        addPrgBtn.setAttribute('onclick', 'addArticleSection()');
-        const prgBtnTxt = document.createTextNode("הוסף פסקה");
-        addPrgBtn.appendChild(prgBtnTxt);
-
-        const br = document.createElement("br");
-        function removeTempBtn(){
-           var tempBtn = document.getElementById('tempBtn');
-           tempBtn.remove();
-        };
-        removeTempBtn();
-
-        newArticleDiv.appendChild(newTextarea);
-        newArticleDiv.appendChild(br);
-        newArticleDiv.appendChild(newLbl);
-        newArticleDiv.appendChild(newInputImg);
-        newArticleDiv.appendChild(addPrgBtn);
-        let currentDiv = document.getElementById("article-body");
-        currentDiv.insertBefore(newArticleDiv, null);
-
-        // returning the number of times the func was invoked 
-        // in order to increment newTextarea.className & newInputImg.className
+    //     articlePrgNumber++;
+    //     console.log(`the next prgNumber will be ${articlePrgNumber}`);
         
-        articlePrgNumber++;
-        console.log(`the next prgNumber will be ${articlePrgNumber}`);
-        
-    }
+    // }
 //===================================================================================================
 //  beneath i tried to implement the above function preparing elemnts vars in order to use in multiple admin components and save code lines - it didn't work so well
 
@@ -182,50 +177,52 @@
 
     //===================================================================================================
 
-    function addAboutPrg() {
-        const newAboutDiv = document.createElement("div");
-        newAboutDiv.className = "about-text";
+    // function addAboutPrg() {
+    //     const newAboutDiv = document.createElement("div");
+    //     newAboutDiv.className = "about-text";
 
-        const aboutInputTxt = document.createElement("input");
-        aboutInputTxt.className = "about-par";
-        aboutInputTxt.setAttribute('type', 'text');
-        aboutInputTxt.setAttribute('name', 'par');
+    //     const aboutInputTxt = document.createElement("input");
+    //     aboutInputTxt.className = "about-par";
+    //     aboutInputTxt.setAttribute('type', 'text');
+    //     aboutInputTxt.setAttribute('name', 'par');
 
-        const newAboutLbl = document.createElement("lable");
-        newAboutLbl.className = "about-img";
-        newAboutLbl.setAttribute('for', 'about-img');
-        const lblTxt = document.createTextNode("לצרף תמונה");
-        newAboutLbl.appendChild(lblTxt);
+    //     const newAboutLbl = document.createElement("lable");
+    //     newAboutLbl.className = "about-img";
+    //     newAboutLbl.setAttribute('for', 'about-img');
+    //     const lblTxt = document.createTextNode("לצרף תמונה");
+    //     newAboutLbl.appendChild(lblTxt);
 
-        const aboutInputImg = document.createElement("input");
-        aboutInputImg.className = "about-img";
-        aboutInputImg.setAttribute('type', 'file');
-        aboutInputImg.setAttribute('name', 'about-img');
-        aboutInputImg.setAttribute('accept', 'image/*');
+    //     const aboutInputImg = document.createElement("input");
+    //     aboutInputImg.className = "about-img";
+    //     aboutInputImg.setAttribute('type', 'file');
+    //     aboutInputImg.setAttribute('name', 'about-img');
+    //     aboutInputImg.setAttribute('accept', 'image/*');
 
-        const addPrgBtn = document.createElement("button");
-        addPrgBtn.id = "tempBtn";
-        addPrgBtn.setAttribute('onclick', 'addAboutPrg()');
-        const prgBtnTxt = document.createTextNode("הוסף פסקה");
-        addPrgBtn.appendChild(prgBtnTxt);
+    //     const addPrgBtn = document.createElement("button");
+    //     addPrgBtn.id = "tempBtn";
+    //     addPrgBtn.setAttribute('onclick', 'addAboutPrg()');
+    //     const prgBtnTxt = document.createTextNode("הוסף פסקה");
+    //     addPrgBtn.appendChild(prgBtnTxt);
         
-        const br = document.createElement("br");
+    //     const br = document.createElement("br");
 
-        function removeTempBtn(){
-           var tempBtn = document.getElementById('tempBtn');
-           tempBtn.remove();
-        };
-        removeTempBtn();
+    //     function removeTempBtn(){
+    //        var tempBtn = document.getElementById('tempBtn');
+    //        tempBtn.remove();
+    //     };
+    //     removeTempBtn();
 
-        newAboutDiv.appendChild(aboutInputTxt);
-        newAboutDiv.appendChild(br);
-        newAboutDiv.appendChild(newAboutLbl);
-        newAboutDiv.appendChild(aboutInputImg);
-        newAboutDiv.appendChild(addPrgBtn);
-        let currentAboutDiv = document.getElementById("about-text");
-        currentAboutDiv.insertBefore(newAboutDiv, null);
+    //     newAboutDiv.appendChild(aboutInputTxt);
+    //     newAboutDiv.appendChild(br);
+    //     newAboutDiv.appendChild(newAboutLbl);
+    //     newAboutDiv.appendChild(aboutInputImg);
+    //     newAboutDiv.appendChild(addPrgBtn);
+    //     let currentAboutDiv = document.getElementById("about-text");
+    //     currentAboutDiv.insertBefore(newAboutDiv, null);
 
-    }
+    // }
 
+
+    
 </script>
 

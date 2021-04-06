@@ -1,6 +1,6 @@
 <div class="admin-form">
     <?php 
-        include '../js-scripts.php';
+        // include '../js-scripts.php';
         include '../style.php';
     ?>
     <form id="post-article" method="POST" action="../db/article-post.php" enctype="multipart/form-data" >
@@ -20,12 +20,11 @@
             <input type="text" name="title" size="91" required placeholder='כותרת'>
             <br><br>
             <div id="article-body">
-                <label for="paragraph1" ></label>
-                <textarea name="paragraph1" class="paragraph1" placeholder="...הכנס/הדבק טקסט" autofocus required cols="91" rows="20"></textarea>
+                <label for="text" ></label>
+                <textarea name="text" class="text" placeholder="...הכנס/הדבק טקסט" autofocus required cols="91" rows="20"></textarea>
                 <br>
-                <label for="articleImg1">.אנא הוסף קבצי תמונות בלבד. חשוב לשמור על איכות תמונה גבוהה</label>
-                <input type="file"  name="articleImg1" class="articleImg1" accept="image/*"  >
-                <button id="tempBtn" onclick="addArticleSection()">הוסף פסקה</button>
+                <label for="articleImages">.אנא הוסף קבצי תמונות בלבד. חשוב לשמור על איכות תמונה גבוהה</label>
+                <input type="file" name="articleImages[]" class="articleImages" multiple accept="image/*">
             </div>
             <br><br>
             <button name="post-article" value="post-article">פרסום המאמר</button>

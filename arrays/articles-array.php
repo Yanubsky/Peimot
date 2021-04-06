@@ -2,33 +2,115 @@
 
 
 $myArticlesArr=[
-    "nutritionArtics" => [
-        $articName,
-        "articImgs" => [], // should be an"open" array- meaning the user can add as many imgs into the array
-        $articBody
+    $nutriArticles => [
+        $name,
+        $id,
+        $title,
+        $body,
+        $imagesId => [], // should be an"open" array- meaning the user can add as many imgs into the array
+        $modificationDate
     ],
-    "breathArtics" =>  [
-        $articName,
-        "articImgs" => [],
-        $articBody
+    $breathArticles =>  [
+        $name,
+        $id,
+        $title,
+        $body,
+        $imagesId => [], // should be an"open" array- meaning the user can add as many imgs into the array
+        $modificationDate
     ],
-    "sleepArtics" =>  [
-        $articName,
-        "articImgs" => [],
-        $articBody
+    $sleepArticles =>  [
+        $name,
+        $id,
+        $title,
+        $body,
+        $imagesId => [], // should be an"open" array- meaning the user can add as many imgs into the array
+        $modificationDate
     ],
-    "awarenessArtics" => [
-        $articName,
-        "articImgs" => [],
-        $articBody
+    $awareArticles => [
+        $name,
+        $id,
+        $title,
+        $body,
+        $imagesId => [], // should be an"open" array- meaning the user can add as many imgs into the array
+        $modificationDate
     ],
-    "motionArtics" =>  [
-        $articName,
-        "articImgs" => [],
-        $articBody
+    $motionArticles =>  [
+        $name,
+        $id,
+        $title,
+        $body,
+        $imagesId => [], // should be an"open" array- meaning the user can add as many imgs into the array
+        $modificationDate
     ]
     
 ];
 
+
+/** **************
+ * implementing the articles array:
+ * 
+ * articles=array(
+ *   [topic]=> nutri[
+ *     [0]=>[[name]=> breakfast,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem..."
+ *           ]
+ *    ],
+ *   [topic]=> breath[
+ *     [0]=>[[name]=> deep-breath,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem...",
+ *           ]
+ *    ],
+ *   [topic]=> sleep[
+ *     [0]=>[[name]=> sleeping hours,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem...",
+ *           ]
+ *     ],
+ *   [topic]=> aware[
+ *     [0]=>[[name]=> meditation,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem...",
+ *           ],
+ *   [1]=>[  [name]=> routine awareness,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem...",
+ *           ]
+ *       ],
+ *   [topic]=> motion[
+ *     [0]=>[[name]=> blood stimulation,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem...",
+ *           ],
+ *     [1]=>[[name]=> morning activity,
+ *           [id]=> 1,
+ *           [title]=> "Lorem...",
+ *           [body]=> "Lorem...",
+ *           [images]=>[1,2,3,4]
+ *           [date]=> "Lorem...",
+ *           ],
+ *        ]
+ * )
+ * 
+ *******************/
 
 ?>

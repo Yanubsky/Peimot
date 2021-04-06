@@ -1,5 +1,5 @@
 <div class="form-main-div">
-    <form action="./db/update-therapies.php" id="update-therapies" method="POST"></form>
+    <form action="./db/update-therapies.php" id="update-therapies" method="POST">
         <fieldset>
             <legend>קליניקה</legend>
             <p>פרישת הטיפולים כמו ואפשרות לסמן מאמר בבחירה מרובה לשם מחיקה ובנוסף מקום להוספת טיפולים</p>

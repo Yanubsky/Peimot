@@ -21,7 +21,7 @@ $motion = "המרצת הדם גמישות כח פיתוח סיבולת לב רי
 //admin vars: @admin.php
 
 $admins = array("liorke@gmail.com","nivniv1982@gmail.com");
-
+$tinshemmet = array('תזונה', 'נשימה', 'שינה',  'מודעות', 'תנועה')
 //images
 
 

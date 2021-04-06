@@ -1,5 +1,5 @@
 <div class="form-main-div">
-    <form action="./db/updateDetails.php" id="update-details" method="POST"></form>
+    <form action="./db/updateDetails.php" id="update-details" method="POST">
         <fieldset>
             <legend> עדכון פרטים </legend>
             <input type="text" name="email" placeholder='שם משתמש'>

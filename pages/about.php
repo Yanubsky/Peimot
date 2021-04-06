@@ -21,6 +21,7 @@ session_start()
     } else {
         echo "<h4> אינך מחובר</h4>";
     }   
+    
     ?>
 
     <!-- <?php include '../footer.php'?> -->

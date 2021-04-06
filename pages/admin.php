@@ -59,7 +59,6 @@ session_start();
 </div>
 
 <!-- <?php include '../footer.php'?> -->
-<?php include '../js-scripts.php'?>
 
 
 <script>

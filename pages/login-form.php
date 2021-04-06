@@ -15,9 +15,9 @@
         <form id="login" method="POST" action="../db/login-handle.php">
             <fieldset>
                 <legend>התחבר</legend>
-                <input type="text" name="email" placeholder='דוא"ל'>
+                <input type="text" name="email" onfocus="this.value=''" value='דוא"ל'>
                 <br>
-                <input type="password" name="pass" id="loginPass" placeholder="********">
+                <input type="password" name="pass" id="loginPass" onfocus="this.value=''" value="********">
                 <br>
                 <button name="signin" value="SIGN IN">התחבר</button>
                 <br><br>
@@ -27,11 +27,11 @@
         <form id="register" method="POST" action="../db/register.php">
             <fieldset>
                 <legend> הרשמה זריזה </legend>
-                <input type="text" name="email" placeholder='דוא"ל'>
+                <input type="text" name="email" onfocus="this.value=''" value='דוא"ל'>
                 <br>
-                <input type="password" name="pass" id="regPass" placeholder="סיסמא">
+                <input type="password" name="pass" id="regPass" onfocus="this.value=''" value="סיסמא">
                 <br>
-                <input type="password" name="confirmPass" id="confirmPass" placeholder="אישור סיסמא">
+                <input type="password" name="confirmPass" id="confirmPass" onfocus="this.value=''" value="אישור סיסמא">
                 <br>
                 <button name="register" value="REGISTER">הרשמה</button>
                 <br><br>

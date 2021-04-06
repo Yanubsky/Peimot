@@ -1,6 +1,7 @@
 <?php 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'pdo-connection.php';
+    include '../helpers/helper-php-funcs.php';
     postArticle();
     // header("location:/myphp/peimot/pages/home.php");
 }
@@ -11,129 +12,141 @@ function postArticle()
     if (isset($_POST['post-article'])) {
         $articleTopic = $_POST['articleSubject'];
         $articleName = $_POST['title'];
-        $updateArticles= $con->prepare("CREATE TABLE IF NOT EXISTS Articles(
-            ArticleId int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-            Title varchar(60) NOT NULL,
-            Topic varchar(10) NOT NULL,
-            PRIMARY KEY (ArticleId)
+        $recievedContent = $_POST['text'];
+        // reshaping the article 
+        
+        $textMap = array("(--)", "(---)", "(-)", "(..)", "(***)", "(****)", "|-|", "|--|");
+        $textValue = array("<h2>", "</h2>", "<br>", "<br><br>", "<strong>", "</strong>", "<div id=one-image><img src='", "' width='500' height='600'> </div>");
+        $content = str_replace($textMap, $textValue, $recievedContent);
+            // checkig if the replacement was smooth:
+        // for ($i=0;$i<count($textMap); $i++) {
+        //     $found = strpos($recievedContent, $textMap[$i]);
+        //     if ($found !== false) {
+        //         $subjectCount = 1;
+        //         for ($subjectCount=1;$found !== false; $subjectCount++) {
+        //             $found++;
+        //             strpos($recievedContent, $textMap[$i], $found);
+        //         } ;
+         
+        //     };
+        // };
+
+        $updateArticles= $con->prepare(
+            "CREATE TABLE IF NOT EXISTS articles(
+                id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+                topic varchar(10) NOT NULL,
+                koteret varchar(60) NOT NULL,
+                content text NOT NULL,
+                postDate date NOT NULL,
+                PRIMARY KEY (id),
+                UNIQUE KEY (koteret)
             );"
         );
         $updateArticles->execute();
 
         $articlesQuery = "INSERT INTO `articles`
-        (`topic`, `title`)
+        (`topic`, `koteret`, `content`, `postDate`)
         VALUES
-        (:topic,:title)";
+        (:topic,:koteret,:content, NOW())";
 
         $query1 = $con->prepare($articlesQuery);
-
-        $query1->bindParam(':topic', $articleTopic);
-        $query1->bindParam(':title', $articleName);
-
+            $query1->bindParam(':topic', $articleTopic);
+            $query1->bindParam(':koteret', $articleName);
+            $query1->bindParam(':content', $content);
         $query1->execute();
-
+    
         $lastInsertId = $con->lastInsertId();
-        //-------- paragraphs handle---------//
-        if ($lastInsertId > 0 ) { 
-            $prg1 = $_POST['paragraph1'];
-
-
-            if(isset($_POST['paragraph2'])){
-                $prg2 = $_POST['paragraph2'];
-
-                if(isset($_POST['paragraph3'])){
-                    $prg3 = $_POST['paragraph3'];
-        
-                }
-            }
-            
-            $updatePrgs = $con->prepare("CREATE TABLE IF NOT EXISTS Paragraphs(
-                ArticleId INT (10) UNSIGNED NOT NULL,
-                ParId INT (10) UNSGIGNED NOT NULL AUTO_INCREMENT,
-                Paragraph TEXT,
-                PRIMARY KEY (ParId),
-                FOREIGN KEY (ArticleId) REFERENCES Articles(ArticleId)                
-                );"
+        //-------- images handle---------//
+        $images = $_FILES['articleImages'];
+        $countFiles = count($images['name']);
+        if ($lastInsertId > 0 && $countFiles > 0 ) {
+            $phpFileUploadErrors = array(
+                0 => 'There is no error, the file uploaded with success',
+                1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+                2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+                3 => 'The uploaded file was only partially uploaded',
+                4 => 'No file was uploaded',
+                6 => 'Missing a temporary folder',
+                7 => 'Failed to write file to disk.',
+                8 => 'A PHP extension stopped the file upload.',
             );
-            $updatePrgs->execute();
-            $prgsQuery = "INSERT INTO `Paragraphs`
-            (`Paragraph`)
-            VALUES
-            (:Paragraph1)";
-            $query2 = $con->prepare($prgsQuery);
+    
+            $filesArray = reArrayFiles($images, $countFiles);
+            for ($i=0;$i<count($filesArray);$i++) {
+                if ($filesArray[$i]['error']) {
+                    ?> <div class="alert alert-danger">
+                         <?php echo $filesArray[$i]['name']. '-' . $phpFileUploadErrors[$filesArray[$i]['error']]; ?> </div><?php
+                } 
+                else 
+                {
+                    // getting the last added articleId - is it differrent from $con->lastInsertId()?
+                    $select= $con->prepare("SELECT * FROM articles WHERE koteret = '$articleName'");
+                    $select->setFetchMode(PDO::FETCH_ASSOC);
+                    $select->execute();
+                    $data=$select->fetch();
 
-            $query2->bindParam(':Paragraph1', $prg1);
-            $query2->bindParam(':Paragraph2', $prg2);
-            $query2->bindParam(':Paragraph3', $prg3);
+                    //saving the image on the server
+                    $imageName = $filesArray[$i]['name'];
+                    $tmpName = $filesArray[$i]['tmp_name'];
+                    $dirTale = $articleName . '_'; // this part is ment to let a hebrew dir-name.
+                    if (!is_dir('D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale)){
+                        mkdir('D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale);
+                    };
+                    $destination = 'D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale;
+                    move_uploaded_file($tmpName, "$destination/$imageName");
+                    // populating vars for db query
+                    $articleId = $data['id'];
+                    $imageUrl = $destination . "/" . $imageName;
+                    $imageSize = $filesArray[$i]['size'];
+                    $imageType = $filesArray[$i]['type'];
 
-            $query2->execute();
-            // can i use the below condition as a loop inside itself?? i have an issue debugging with PHP... 
-            $lastInsertId = $con->lastInsertId();
-            if ($lastInsertId > 0 ) { // added images handle
-                $img1 = $_POST['articleImg1'];
-                if(isset($_POST['articleImg2'])){
-                    $img2 = $_POST['articleImg2'];
-                    if(isset($_POST['articleImg3'])){
-                        $img3 = $_POST['articleImg3'];
-        
+                    $updateImgs = $con->prepare(
+                        "CREATE TABLE IF NOT EXISTS images(
+                            articleId INT (10) UNSIGNED NOT NULL,
+                            imageId INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+                            imageName varchar (55),
+                            img LONGBLOB,
+                            size varchar (55),
+                            imageType varchar (55),
+                            -- themeImage boolean,
+                            PRIMARY KEY (imageId),
+                            FOREIGN KEY (articleId) REFERENCES articles(id)                
+                        );"
+                    );
+                    $updateImgs->execute();
+                    $imgsQuery = "INSERT INTO `images`
+                    (`articleId`,`imageName`,`img`,`size`,`imageType`)
+                    VALUES
+                    (:articleId,:imageName,:img,:size,:imageType)";
+                    $query3 = $con->prepare($imgsQuery);
+                        $query3->bindParam(':articleId', $articleId);
+                        $query3->bindParam(':imageName', $imageName);
+                        $query3->bindParam(':img', $imageUrl);
+                        $query3->bindParam(':size', $imageSize);
+                        $query3->bindParam(':imageType', $imageType);
+                    $query3->execute();
+                    $lastInsertId_images = $con->lastInsertId();
+                    if($lastInsertId_images > 0 && $lastInsertId_images !== $lastInsertId) {
+                        echo `<h1> המאמר על בהצלחה</h1>`;
+                        header("location:/myphp/peimot/pages/articles.php");
+                    } 
+                    else 
+                    {
+                        echo "<h2>המאמר לא התווסף לאתר, **בעיה בהוספת תמונות** אנא נסה שוב או פנה לתמיכה אם התקלה נשנית</h2>";
+                        // i want the next code line will run only after 5 sec
+                        sleep(5);
+                        header("location:/myphp/peimot/pages/admin.php");
                     }
                 }
-                $updateImgs = $con->prepare("CREATE TABLE IF NOT EXISTS Images(
-                    ArticleId INT (10) UNSIGNED NOT NULL,
-                    ImageId INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                    Img LONGBLOB,
-                    PRIMARY KEY (ImageId),
-                    FOREIGN KEY (ArticleId) REFERENCES Articles(ArticleId)                
-                    );"
-                );
-                $updateImgs->execute();
-                $imgsQuery = "INSERT INTO `Images`
-                (`Image1`)
-                VALUES
-                (:Image1)";
-                $query3 = $con->prepare($imgsQuery);
-
-                $query3->bindParam(':Image1', $img1);
-                $query3->bindParam(':Image2', $img2);
-                $query3->bindParam(':Image3', $img3);
-
-                $query3->execute();
-                $lastInsertId = $con->lastInsertId();
-                if ($lastInsertId > 0 ) {
-                    echo `<h1> המאמר על בהצלחה</h1>`;
-                    // i want the next code line will run only after 5 sec
-                    header("location:/myphp/peimot/pages/articles.php");
-                }
-                else
-                {
-                    echo "<h2>המאמר לא התווסף לאתר, **בעיה בהוספת תמונות** אנא נסה שוב או פנה לתמיכה אם התקלה נשנית</h2>";
-                    // i want the next code line will run only after 5 sec
-                    header("location:/myphp/peimot/pages/articles.php");
-                }
-        
-
             }
-            else
-            {
-                echo "<h2>המאמר לא התווסף לאתר, **בעיה בהוספת טקסט** אנא נסה שוב או פנה לתמיכה אם התקלה נשנית</h2>";
-                // i want the next code line will run only after 5 sec
-                header("location:/myphp/peimot/pages/home.php");
-
-            }
-    
-         
         }
-        else
-        {
-            echo "<h2>המאמר לא התווסף לאתר, אנא נסה שוב או פנה לתמיכה אם התקלה נשנית</h2>";
-            // i want the next code line will run only after 5 sec
-            header("location:/myphp/peimot/pages/about.php");
-
-        }
-
-
-
+    }
+    else
+    {
+       
+        header("location:/myphp/peimot/pages/admin.php");
     }
 }
+
 
 ?>

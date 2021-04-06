@@ -24,7 +24,6 @@
         --theme-color-err-bg:rgba(214, 88, 100, 1);
         /* --theme-color-btn-pressed:rgba(89, 73, 81,1); */
         --theme-color-btn-pressed:rgba(37, 108, 97,1);
-
         
     }
 
@@ -45,9 +44,6 @@
       position: relative;
       overflow: auto;
   }
-
-
-
 
 /*===============footer=================*/
 .main-footer {
@@ -199,8 +195,6 @@ header.onscroll-nav-transparent {
     text-align: right;
     padding-right: 5px;
 }
-.admin-form[type=password],
-.admin-form[type=confirmPassword],
 form input[type=text],
 form input[type=password],
 form input[type=confirmPassword],
@@ -233,7 +227,7 @@ form legend {
     color: var(--theme-color-header1);
     background-color: var(--theme-color-main1);
     border-radius: 25%;
-    border-width:2px;
+    border-width:1px;
     border-color: var(--theme-color-nav-border);
     text-align: center;
     width:auto ;
@@ -249,11 +243,9 @@ form legend {
 
 
 .admin-form [type=file]{
-    color: transparent;
     background-color: var(--theme-color-scpecial);
     border-width: 12px;
     border-color: var(--theme-color-nav-border);
-   width: 91px;
 }
 
 .admin-form textarea{
@@ -298,7 +290,7 @@ form input[type=confirmPassword] {
 
 form input,
 form button {
-    border: 1px solid var(--theme-color-nav-border);
+    border: 2px var(--theme-color-nav-border);
     border-radius: 2px;
     box-shadow: 0px 0px 2px 0px #999;
     padding: 5px;
@@ -316,6 +308,7 @@ form input:hover
 {
     background-color : var(--theme-color-header2);
 }
+
 form button:hover{
     background-color: var(--theme-color-text2);
     color: var(--theme-color-header2);
@@ -340,6 +333,18 @@ form legend{
   border: 1px var(--theme-color-nav-border);
 }
 
+#chosenTopic {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+#topic-name{
+    width: 100%;
+    color: var(--theme-color-header1);
+    background-color: var(--theme-color-scpecial);
+    text-align: center;
+}
 
 /*============ end forms =============*/
 
@@ -353,6 +358,27 @@ form legend{
     align-items: flex-start;
     margin: 20px;
 }
+div.articlesTopics{
+    /* background-color: var(--theme-background-gradient); */
+    overflow: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: var(--theme-background-gradient);
+
+}
+div.articlesTopics form input[type=image]{
+    height: 300px;
+    width: 300px;
+    padding: 10px;
+
+}
+div.articlesTopics form input[type=image]:hover{
+    opacity: 0.8;
+    padding: 7px;
+    background-color: var(--theme-background-gradient);
+}
+
 
 .left-content {
     text-align: left;
@@ -374,6 +400,8 @@ form legend{
     margin: 20px;
     background-color: transparent;
     height: calc(100vh + 600px);
+    color: var(--theme-color-header1);
+    text-align: right;
 }
 
 
@@ -402,7 +430,7 @@ form legend{
     .wrapper {
         /* The height needs to be set to a fixed value for the effect to work.
              100vh is the full height of the viewport. */
-        height: 100vh;
+            height: 100vh;
         /* The scaling of the images would add a horizontal scrollbar, so disable x overflow. */
         overflow-x: hidden;
         /* Enable scrolling on the page. */
