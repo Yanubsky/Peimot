@@ -1,4 +1,5 @@
 <?php
+require '../vendor/autoload.php';
 try {
     $dbhost = 'localhost:3307';
     $dbname = 'lior'; 

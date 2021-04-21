@@ -105,7 +105,7 @@ function postArticle()
                             articleId INT (10) UNSIGNED NOT NULL,
                             imageId INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
                             imageName varchar (55),
-                            img LONGBLOB,
+                            img varchar,
                             size varchar (55),
                             imageType varchar (55),
                             -- themeImage boolean,

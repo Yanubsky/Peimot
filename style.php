@@ -20,6 +20,8 @@
         --theme-background-gradient: linear-gradient(297deg, rgba(210, 203, 199, 1) 3%, rgba(211, 204, 200, 1) 5%, rgba(212, 205, 201, 1) 30%, rgba(214, 207, 203, 1) 45%, rgba(210, 203, 199, 1) 70%);
         --theme-color-nav-border: rgba(110, 147, 136, 1);
         --theme-color-nav-border-shadow:rgba(110, 147, 136, 1);
+        --theme-color-article-border-shadow:rgba(157, 168, 149, 1);
+
         --theme-color-err-msg:rgba(134, 60, 75, 1);
         --theme-color-err-bg:rgba(214, 88, 100, 1);
         /* --theme-color-btn-pressed:rgba(89, 73, 81,1); */
@@ -348,7 +350,23 @@ form legend{
 
 /*============ end forms =============*/
 
-
+/*============ articles =============*/
+#being-read{
+    width: 756px;
+    border-style: double;
+    border-color: var(--theme-color-nav-border);
+    box-shadow: 2px 2px var(--theme-color-article-border-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+#one-image{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: auto;
+    margin: auto;
+}
 
 /*============ general =============*/
 .div-around-centered-content {

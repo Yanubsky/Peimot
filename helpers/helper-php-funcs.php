@@ -1,6 +1,7 @@
 <?php 
 include '../db/pdo-connection.php';
     global $con;
+    $fetchedContent;
 
 function console_log( $info ){
     echo '<script>';
@@ -42,9 +43,10 @@ function createArticlesArray($desiredTopic){
    
     foreach($chosenTopic as $key => $val) { 
         // echo $key . "<br> ******* <br>";
-         $artImg= $val['img'];
-         $finalImg = stristr($artImg , "/myphp"); 
-         $articleId = $val['id'];
+
+        $artImg= $val['img'];
+        $finalImg = stristr($artImg , "/myphp"); 
+        $articleId = $val['id'];
 
         echo "<div class='article-details-and-image'>";
         echo "<br>" . " <h4>"  . $val['koteret'] . "</h4>" . "<br>";
@@ -55,7 +57,7 @@ function createArticlesArray($desiredTopic){
           echo "<input type='hidden' class='hidden-article' name='chosen-article' value=$articleId>";
           echo "<input type='image' src='$finalImg' style='height: 300px; width:300px; padding: 20px' name='article-image' class='article-image-button'/>"
 ?>
-        </form> 
+        </form>
 <?php
 
             // echo "<br>" . "id : " . $val['id'];
@@ -64,7 +66,7 @@ function createArticlesArray($desiredTopic){
             // echo "<img src='$finalImg' style='height: 300px; width:300px; padding: 20px''>";
           echo "</div> </div>";
     };
-    //==== another option for implementing the iteration on an array of arrays:    
+//========= another option for implementing the iteration on an array of arrays: ============   
     //    foreach ($nutriArticles as $oneArticleKey => $theCurrArticle) {
     //        foreach ($theCurrArticle as $k => $v) {
     //            echo "<br>" . $k . ": " . $v;
@@ -79,87 +81,37 @@ function createArticlesArray($desiredTopic){
 };
 //================================================================================================================================================================================
 
-    //scan the input text from the admin for handling the uploaded article- pulling the images out, 
-    //keep the text symbols and layout that the admin ment
+    //fetching the article and the related images and replacing the images names with the urls for the final printing of the article on the screen
 
-function articleFetch($chosenArticleId){ // it is possible that the param $chosenArticleId should be required also(or instead) to txtScan()
+function articleFetch($chosenArticleId){ 
     global $con;
-    $selectArticle = $con->prepare("SELECT * FROM articles a JOIN images i 
-                                    ON (a.id = i.articleId) WHERE a.id = '".$chosenArticleId."'");
+
+    $selectArticle = $con->prepare("SELECT content FROM articles a WHERE a.id = '".$chosenArticleId."'");
     $selectArticle-> setFetchMode(PDO::FETCH_ASSOC);
     $selectArticle-> execute();
-    $articleToScan = $selectArticle->fetch();
+    $contentToScan = $selectArticle->fetch();
 
-    // echo " <br> ===== <br>";
-    // preArr($articleToScan);
-    // echo " <br> ===== <br>";
-
-    $fetchedId = $articleToScan['id'] ;
-    $fetchedContent = $articleToScan['content'];
-    // $fetchedKoteret= $articleToScan['koteret'];
-    // $fetchedTopic = $articleToScan['topic'];
-    // $fetchedPostDate = $articleToScan['postDate'];
-
-    // console_log("article id is:" . $fetchedId );
-    // console_log("article content is:" . $fetchedContent );
-    // console_log("article koteret is:" . $fetchedKoteret );
-    // console_log("article topic is:" . $fetchedTopic );
-    // console_log("article date is:" . $fetchedPostDate );
-    global $imageSourceName;
-    global $finalImg;
-    $txtToPublish = str_replace($imageSourceName, $finalImg, $fetchedContent);
-
-    echo "<div id= 'being-read' dir='rtl'>" . $txtToPublish;
-
-    echo "</div>";
-
-    echo "<br> <div>" ; 
-    imagesFetch($fetchedId);
-    echo "</div>";
-    
-
-}
-function imagesFetch($fetchedId){
-    global $con;
-    $selectImages =  $con->prepare("SELECT * FROM images WHERE images.articleId = '".$fetchedId."'");
+    $selectImages = $con->prepare("SELECT * FROM images i WHERE i.articleId = '".$chosenArticleId."'");
     $selectImages->setFetchMode(PDO::FETCH_ASSOC);
     $selectImages->execute();
-    $imagesToPrintArray = $selectImages->fetchAll();
+    $imagesArray = $selectImages->fetchAll();
 
-    echo " <br> ***** <br>";
-    preArr($imagesToPrintArray);
-    echo " <br> ***** <br>";
+    $positionsArray = array();
+    $urlsArray = array();
+    foreach($imagesArray as $curr){
+        $positionInText = $curr['imageName'];
+        array_push($positionsArray,$positionInText);
 
-    foreach($imagesToPrintArray as $key => $val){
-        $relatedArticleId = $val['articleId'];
-        $imageId = $val['imageId'];
-        $imageSize = $val['size'];
-        $imagetype = $val['imageType'];
-        $imageUrl = $val['img'];
-        $imageSourceName = $val['imageName'];
-
+        $imageUrl = $curr['img'];
         $finalImg = stristr($imageUrl , "/myphp"); 
+        array_push($urlsArray, $finalImg);
+    }
+    $txtToPublish = str_replace($positionsArray, $urlsArray, $contentToScan);
+    $printableArticle = $txtToPublish['content'];
+    console_log($printableArticle); 
+    echo "<div id='being-read' dir='rtl'>" . "<br>". $printableArticle . "<br>";
+    echo "</div>";
 
-        echo "<div id=one-image><img src='$finalImg' width='500' height='600'> </div>";
-        
-    };
-
-
-};
-
-// function txtScan($rawTxt){
-//     $textMap = array("(--)","(/--)","(-)","(..)");
-//     $textValue = array("<h2>","</h2>","<br>","<br><br>");
-//     for ($i=0;$i<count($textMap); $i++) {
-//         $found = strpos($rawTxt, $textMap[$i]);
-//         if ($found !== false) {
-//             $subjectCount = 1;
-//             for ($subjectCount=1;$found !== false; $subjectCount++) {
-//                 $found++;
-//                 strpos($rawTxt, $textMap[$i], $found);
-//             } ;
-//         };
-//     };
-// };
+}
 ?>
 
