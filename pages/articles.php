@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Peimot Articles</title>
     <?php include '../style.php' ?>
 </head>
 <body>
@@ -47,9 +47,6 @@ session_start();
         <div id="chosenTopic">
             <?php 
                 if (isset($_POST['topic'])) {
-                    // $choise = $_POST['topic'];
-                    // echo "<br> <h3> You've chosen: </h3>" . $choise . "!!! <br>";
-
                     switch ($_POST['topic']) {
                         case '0':
                             echo "<div id='topic-name'> <h2> מאמרים בנושא תזונה </h2> </div>";
@@ -76,10 +73,6 @@ session_start();
                 {
                     console_log("no topic was chosen");
                 };
-
-                // for ($i = 0; $i < count($nutriArticles); $i++) {
-                //     echo "<div><img src='$nutriArticles[$i]' width='300px' height='200px' alt='free soul'/></div>";
-                // }
 
                 if (isset($_POST['chosen-article'])){
                     $chosenArticle = $_POST['chosen-article'];

@@ -1,7 +1,7 @@
 <?php include "vars.php"; ?>
 <header class="header">
     <h1 class="logo"><a  href="./home.php"><?php echo $logo?></a></h1>
-    <h4><?php echo $slogen ?></h4>
+    <!-- <h4><?php echo $slogen ?></h4> -->
    
     <ul class="main-nav">
         <li><A id="about" href="./about.php"><?php echo $about?></A></li>
@@ -17,8 +17,7 @@
                 $isAdmin = $_SESSION['isAdmin'];
                 if ($isAdmin != 0) {
                     echo '<li><A id="logout" href="../db/do-logout.php" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTtW2vS-RCiLjnd5cQozpAv70Rzv7SMJO84A&usqp=CAU"></A></li>';
-                    echo "<li><A id='admin' href='./admin.php'>$user</A></li>"; // when the link is activated it logs the user out
-                    // TODO: continue with admin interface
+                    echo "<li><A id='admin' href='./admin.php'>$user</A></li>"; 
                 } 
                 else 
                 {

@@ -19,7 +19,7 @@ session_start();
     <div class="adminHeader">
         <h2>מנהל יקר</h2><br>
         <h2>דף זה משמש לעריכת המידע באתר, אנא השתמש בו בזהירות רבה</h2>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> <!-- why did i have to do this?-->
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
             <button id="about" type="submit" name="choise" value="about"><?php echo $about?></button>
             <button id="users" type="submit" name="choise" value="users"><?php echo $users?></button>       
             <button id="therapies" type="submit" name="choise" value="therapies"><?php echo $therapies?></button>

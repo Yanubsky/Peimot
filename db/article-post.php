@@ -79,7 +79,7 @@ function postArticle()
                 } 
                 else 
                 {
-                    // getting the last added articleId - is it differrent from $con->lastInsertId()?
+                    // getting the last added articleId
                     $select= $con->prepare("SELECT * FROM articles WHERE koteret = '$articleName'");
                     $select->setFetchMode(PDO::FETCH_ASSOC);
                     $select->execute();
@@ -87,13 +87,15 @@ function postArticle()
 
                     //saving the image on the server
                     $imageName = $filesArray[$i]['name'];
-                    $tmpName = $filesArray[$i]['tmp_name'];
+                    $tmpName = $filesArray[$i]['tmp_name']; 
+                    $serverLocation = 'D:/xampp/htdocs/myphp/peimot/uploaded/';
                     $dirTale = $articleName . '_'; // this part is ment to let a hebrew dir-name.
-                    if (!is_dir('D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale)){
-                        mkdir('D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale);
+                    if (!is_dir($serverLocation . $dirTale)){
+                        $destination = mkdir($serverLocation . $dirTale);
                     };
-                    $destination = 'D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale;
+                    // $destination = $serverLocation . $dirTale;
                     move_uploaded_file($tmpName, "$destination/$imageName");
+                    
                     // populating vars for db query
                     $articleId = $data['id'];
                     $imageUrl = $destination . "/" . $imageName;

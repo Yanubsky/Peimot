@@ -17,7 +17,7 @@ function preArr ($arr){
 
 function reArrayFiles($arr, $count) {
     $imagesArray= [];
-    $filesKeys = array_keys($arr);
+    $filesKeys = array_keys($arr); // returns the keys of an assoc array
 
     for ($i=0; $i<$count; $i++) {
         foreach ($filesKeys as $key) {
@@ -36,12 +36,12 @@ function createArticlesArray($desiredTopic){
                                          ON (a.id = i.articleId) WHERE a.topic = '".$desiredTopic."' GROUP BY a.id");
     $selectArticleTopic->setFetchMode(PDO::FETCH_ASSOC);
     $selectArticleTopic->execute();
-    $chosenTopic = $selectArticleTopic->fetchAll();
+    $chosenTopicArticlesArray = $selectArticleTopic->fetchAll();
    
     //     echo "createArticlesArray prints:";
-    //    preArr($nutriArticles);     // checking which kind of an array wa fetched
+    //    preArr($nutriArticles);     // checking which kind of an array was fetched
    
-    foreach($chosenTopic as $key => $val) { 
+    foreach($chosenTopicArticlesArray as $key => $val) { 
         // echo $key . "<br> ******* <br>";
 
         $artImg= $val['img'];
@@ -52,18 +52,13 @@ function createArticlesArray($desiredTopic){
         echo "<br>" . " <h4>"  . $val['koteret'] . "</h4>" . "<br>";
         echo "<div class='chosen-topic-articles'>"; 
 ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> <!-- why did i have to do this? htmlspecialchars-->  
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
 <?php                 
           echo "<input type='hidden' class='hidden-article' name='chosen-article' value=$articleId>";
           echo "<input type='image' src='$finalImg' style='height: 300px; width:300px; padding: 20px' name='article-image' class='article-image-button'/>"
 ?>
         </form>
 <?php
-
-            // echo "<br>" . "id : " . $val['id'];
-            // echo "<br>" . " <h4>"  . $val['koteret'] . "</h4>";
-            // echo "<br>" . "topic : " .  $val['topic'];
-            // echo "<img src='$finalImg' style='height: 300px; width:300px; padding: 20px''>";
           echo "</div> </div>";
     };
 //========= another option for implementing the iteration on an array of arrays: ============   
@@ -108,7 +103,6 @@ function articleFetch($chosenArticleId){
     }
     $txtToPublish = str_replace($positionsArray, $urlsArray, $contentToScan);
     $printableArticle = $txtToPublish['content'];
-    console_log($printableArticle); 
     echo "<div id='being-read' dir='rtl'>" . "<br>". $printableArticle . "<br>";
     echo "</div>";
 
