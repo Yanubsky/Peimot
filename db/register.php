@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function createNewTable(){
     include 'login-handle.php';
 
+
     if (isset($_POST['register'])) {
         $email = $_POST['email'];
         $pass = $_POST['pass'];
@@ -15,11 +16,11 @@ function createNewTable(){
         if ($pass === $confirmPass) {
             $createTable = $con->prepare(
                 'CREATE TABLE IF NOT EXISTS users(
-                id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                email varchar(60) NOT NULL,
-                pass varchar(60)NOT NULL,
-                isAdmin boolean NOT NULL,
-                PRIMARY KEY (id)
+                    id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+                    email varchar(60) NOT NULL,
+                    pass varchar(60)NOT NULL,
+                    isAdmin boolean NOT NULL,
+                    PRIMARY KEY (id)
                 );'
             );
             $createTable->execute();

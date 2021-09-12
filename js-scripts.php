@@ -50,7 +50,7 @@
                 navItems[i].classList.remove('currentNavItem');
             }
             qs(currentItem).classList.add('currentNavItem');
-        } 
+    } 
     //===================================================================================================
 
     function changeAdminCurrentComponentColor(currentBtn) {
@@ -61,12 +61,12 @@
     //===================================================================================================
 
     function passConfirm(pass,confirm) {
-    if(pass!==confirm){
-        qs(".input.confirmPass").classList.add("err");
-    } 
-    else {  
-        qs(".input.confirmPass").classList.remove("err");
-    };
+        if(pass!==confirm){
+            qs(".input.confirmPass").classList.add("err");
+        } 
+        else {  
+            qs(".input.confirmPass").classList.remove("err");
+        };
     } ; 
 
     //===================================================================================================

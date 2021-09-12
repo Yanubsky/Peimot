@@ -382,7 +382,7 @@ div.articlesTopics{
     white-space: nowrap;
     display: flex;
     flex-direction: row-reverse;
-    background-color: var(--theme-background-gradient);
+    /* background-color: var(--theme-background-gradient); */
 
 }
 div.articlesTopics form input[type=image]{
@@ -410,8 +410,6 @@ div.articlesTopics form input[type=image]:hover{
     margin: 0px 20px;
 }
 
-
-
 .itemsMainDiv,
 .profileMainDiv,
 .LoginHandleMainDiv {
@@ -422,13 +420,9 @@ div.articlesTopics form input[type=image]:hover{
     text-align: right;
 }
 
-
-
 .homeBody {
     height: calc(100vh + 20px);
 }
-
-
 
 #gallery img {
     padding: 5px 10px;

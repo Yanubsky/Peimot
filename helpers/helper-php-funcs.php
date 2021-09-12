@@ -51,14 +51,14 @@ function createArticlesArray($desiredTopic){
         echo "<div class='article-details-and-image'>";
         echo "<br>" . " <h4>"  . $val['koteret'] . "</h4>" . "<br>";
         echo "<div class='chosen-topic-articles'>"; 
-?>
+    ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-<?php                 
+    <?php                 
           echo "<input type='hidden' class='hidden-article' name='chosen-article' value=$articleId>";
           echo "<input type='image' src='$finalImg' style='height: 300px; width:300px; padding: 20px' name='article-image' class='article-image-button'/>"
-?>
+    ?>
         </form>
-<?php
+    <?php
           echo "</div> </div>";
     };
 //========= another option for implementing the iteration on an array of arrays: ============   

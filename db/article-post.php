@@ -87,15 +87,13 @@ function postArticle()
 
                     //saving the image on the server
                     $imageName = $filesArray[$i]['name'];
-                    $tmpName = $filesArray[$i]['tmp_name']; 
-                    $serverLocation = 'D:/xampp/htdocs/myphp/peimot/uploaded/';
+                    $tmpName = $filesArray[$i]['tmp_name'];
                     $dirTale = $articleName . '_'; // this part is ment to let a hebrew dir-name.
-                    if (!is_dir($serverLocation . $dirTale)){
-                        $destination = mkdir($serverLocation . $dirTale);
+                    $destination = 'D:/xampp/htdocs/myphp/peimot/uploaded/' . $dirTale;
+                    if (!is_dir($destination)){
+                        mkdir($destination);
                     };
-                    // $destination = $serverLocation . $dirTale;
                     move_uploaded_file($tmpName, "$destination/$imageName");
-                    
                     // populating vars for db query
                     $articleId = $data['id'];
                     $imageUrl = $destination . "/" . $imageName;
@@ -106,8 +104,8 @@ function postArticle()
                         "CREATE TABLE IF NOT EXISTS images(
                             articleId INT (10) UNSIGNED NOT NULL,
                             imageId INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+                            img varchar (4000),
                             imageName varchar (55),
-                            img varchar,
                             size varchar (55),
                             imageType varchar (55),
                             -- themeImage boolean,
