@@ -1,5 +1,8 @@
 <?php
 require '../vendor/autoload.php';
+use Aws\S3\S3Client;  
+use Aws\Exception\AwsException;
+
 try {
     $dbhost = 'localhost:3307';
     $dbname = 'lior'; 
@@ -13,16 +16,38 @@ try {
     die();
 }
 
-?>
+$s3Client = new S3Client([
+    'profile' => 'default',
+    'region' => 'us-west-2',
+    'version' => '2006-03-01'
+]);
 
-<?php
-//Get Heroku ClearDB connection information
-// $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+function createBucket($s3Client, $bucketName)
+{
+    try {
+        $result = $s3Client->createBucket([
+            'Bucket' => $bucketName,
+        ]);
+        return 'The bucket\'s location is: ' .
+            $result['Location'] . '. ' .
+            'The bucket\'s effective URI is: ' . 
+            $result['@metadata']['effectiveUri'];
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
+}
 
-// $server = $url["host"];
-// $username = $url["user"];
-// $password = $url["pass"];
-// $db = substr($url["path"], 1);
+function createTheBucket()
+{
+    $s3Client = new S3Client([
+        'profile' => 'default',
+        'region' => 'us-east-2',
+        'version' => '2006-03-01'
+    ]);
 
-// $con = new mysqli($server, $username, $password, $db);
+    echo createBucket($s3Client, 'my-bucket');
+}
+
+// Uncomment the following line to run this code in an AWS account.
+createTheBucket('peimot-new-buck');
 ?>
