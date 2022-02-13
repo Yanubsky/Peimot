@@ -16,7 +16,7 @@ function updateDetails(){
             if($newPass === $confirmNewPass){   
                 $id = $_SESSION['id'];
                 $sqlStr = "UPDATE `users` SET 
-                `pass` = :pass WHERE `id` = $id;";
+                `pass` = $newPass WHERE `id` = $id;";
                 $updateQuery = $con->prepare($sqlStr);
 
                 $updateQuery->bindParam(':pass', $newPass, PDO::PARAM_STR);
